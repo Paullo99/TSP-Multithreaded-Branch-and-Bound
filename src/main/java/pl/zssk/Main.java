@@ -9,9 +9,7 @@ public class Main {
 
 	// Menu g³ówne programu
 	public static void main(String[] args) throws FileNotFoundException {
-        /*System.out.println("Wprowadz nazwê pliku: ");
-        Scanner sc = new Scanner(System.in);
-        File file = new File(sc.nextLine());
+        File file = new File("tsp_22.txt");
         Scanner scanner = new Scanner(file);
         int firstLine = scanner.nextInt();
         ArrayGraph graph = new ArrayGraph(firstLine);
@@ -19,14 +17,17 @@ public class Main {
             for (int j = 0; j < firstLine; j++) {
                 graph.addEdge(i, j, scanner.nextInt());
             }
-        }*/
+        }
         //
-       ArrayGraph graph = new ArrayGraph(23);
+        //ArrayGraph graph = new ArrayGraph(24);
 
-        Graph.generateRandomFullGraph(graph, 100);
+        //Graph.generateRandomFullGraph(graph, 100);
         graph.displayGraph();
+
+        
+
         long nanosActualTime = System.nanoTime();
-        ArrayList<Integer> route = Graph.ATSPBranchAndBound(graph);
+        Graph.ATSPBranchAndBound(graph);
         long executionTime = System.nanoTime() - nanosActualTime;
         System.out.println("Czas wykonania algorytmu [ms]: " + executionTime/1000000);
 
