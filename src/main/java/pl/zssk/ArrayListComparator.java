@@ -1,4 +1,4 @@
-package main.java.pl.zssk;
+package pl.zssk;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -8,12 +8,7 @@ public class ArrayListComparator implements Comparator<ArrayList<Integer>> {
 
 	@Override
 	public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
-		if (o1.get(0).intValue() > o2.get(0).intValue())
-			return 1;
-		if (o1.get(0).intValue() < o2.get(0).intValue()) 
-			return -1;
-		else
-			return 0;
+		return Integer.compare(o1.get(0), o2.get(0));
 	}
 
 }

@@ -1,4 +1,4 @@
-package main.java.pl.zssk;
+package pl.zssk;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -28,7 +28,6 @@ public abstract class Graph {
 				}
 			}
 		}
-
 	}
 
 	static ArrayList<Integer> ATSPBranchAndBound(ArrayGraph graph) {
@@ -50,7 +49,6 @@ public abstract class Graph {
 		priorityQueue.add(currentRoute); // Dodanie do kolejki korzenia
 		
 		//deklaracja nastêpnej trasy
-		ArrayList<Integer> nextRoute;
 
 		while (!priorityQueue.isEmpty()) {
 			
@@ -75,7 +73,7 @@ public abstract class Graph {
 						continue;
 
 					// Utworzenie nowego wezla reprezuntujacego rozpatrywane rozwiazanie...
-					nextRoute = new ArrayList<Integer>(currentRoute);
+					ArrayList<Integer> nextRoute = new ArrayList<>(currentRoute);
 					nextRoute.add(i);
 
 					// Dalej bedziemy postepowac roznie...
@@ -165,8 +163,10 @@ public abstract class Graph {
 				// (kolejka priorytetowa, inne nie moga byc lepsze)
 				break;
 			}
-		}
 
+		}
+		priorityQueue = null;
+		System.gc();
 		return optimalRoute;
 
 	}

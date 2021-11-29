@@ -1,39 +1,213 @@
-package main.java.pl.zssk;
+package pl.zssk;
+
+import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-	// Menu g³ówne programu
-	public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("tsp_22.txt");
-        Scanner scanner = new Scanner(file);
-        int firstLine = scanner.nextInt();
-        ArrayGraph graph = new ArrayGraph(firstLine);
+    // Menu g³ówne programu
+    public static void main(String[] args) throws IOException, InterruptedException {
+        long nanosActualTime;
+        long executionTime;
+        ArrayList<Thread> threadArrayList = new ArrayList<>();
+
+        //Liczba w¹tków
+        ArrayList<Integer> numberOfThreads = new ArrayList<>(Arrays.asList(10, 25, 50, 100));
+
+        /*
+        MA£Y PLIK - TSP_22.TXT
+        (10 POWTÓRZEÑ)
+         */
+        System.out.println("\n\ntsp.22.txt\n");
+        ArrayGraph graph22 = getArrayGraph("tsp_20.txt");
+
+
+        for (Integer numberOfProblems : numberOfThreads) {
+            //File file = new File(".\\results\\sequence_"+numberOfProblems + "_problems_size_22.csv");
+            String resultSequenceFilename = ".\\results\\sequence_"+numberOfProblems + "_problems_size_17.csv";
+            String resultParallelFilename = ".\\results\\parallel_"+numberOfProblems + "_problems_size_17.csv";
+            CSVWriter sequenceWriter = new CSVWriter(new FileWriter(resultSequenceFilename, true), ',', CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+            CSVWriter parallelWriter = new CSVWriter(new FileWriter(resultParallelFilename, true), ',', CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+
+            for (int i = 0; i < 10; i++) {
+                System.out.println("Liczba problemów: "+numberOfProblems + " Powtórzenie: " + i);
+                //sekwencyjnie
+                Thread sequence = new Thread(() -> {
+                    for (int j = 0; j < numberOfProblems; j++) {
+                        Graph.ATSPBranchAndBound(graph22);
+                    }
+                });
+                nanosActualTime = System.nanoTime();
+                sequence.start();
+                sequence.join();
+                executionTime = (System.nanoTime() - nanosActualTime) / 1000000;
+                System.out.println("Szeregowo: " + executionTime);
+                sequenceWriter.writeNext(new String[]{String.valueOf(executionTime)});
+
+                //równolegle
+                threadArrayList = new ArrayList<>();
+                for (int j = 0; j < numberOfProblems; j++) {
+                    threadArrayList.add(new Thread(() -> Graph.ATSPBranchAndBound(graph22)));
+                }
+
+
+                for (Thread t : threadArrayList) {
+                    t.start();
+                }
+
+                nanosActualTime = System.nanoTime();
+                for (Thread t : threadArrayList) {
+                    t.join();
+                }
+                executionTime = (System.nanoTime() - nanosActualTime) / 1000000;
+                System.out.println("Równolegle: " + executionTime);
+                parallelWriter.writeNext(new String[]{String.valueOf(executionTime)});
+            }
+            sequenceWriter.close();
+            parallelWriter.close();
+        }
+
+        numberOfThreads = new ArrayList<>(Arrays.asList(2, 3, 4, 5, 8, 10, 25, 50, 100));
+        /*
+        ŒREDNI PLIK - TSP_23.TXT
+        (5 POWTÓRZEÑ)
+         */
+        System.out.println("\n\ntsp.23.txt\n");
+        ArrayGraph graph23 = getArrayGraph("tsp_23.txt");
+
+
+        for (Integer numberOfProblems : numberOfThreads) {
+            //File file = new File(".\\results\\sequence_"+numberOfProblems + "_problems_size_22.csv");
+            String resultSequenceFilename = ".\\results\\sequence_"+numberOfProblems + "_problems_size_23.csv";
+            String resultParallelFilename = ".\\results\\parallel_"+numberOfProblems + "_problems_size_23.csv";
+            CSVWriter sequenceWriter = new CSVWriter(new FileWriter(resultSequenceFilename, true), ',', CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+            CSVWriter parallelWriter = new CSVWriter(new FileWriter(resultParallelFilename, true), ',', CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Liczba problemów: "+numberOfProblems + " Powtórzenie: " + i);
+                //sekwencyjnie
+                Thread sequence = new Thread(() -> {
+                    for (int j = 0; j < numberOfProblems; j++) {
+                        Graph.ATSPBranchAndBound(graph23);
+                    }
+                });
+                nanosActualTime = System.nanoTime();
+                sequence.start();
+                sequence.join();
+                executionTime = (System.nanoTime() - nanosActualTime) / 1000000;
+                sequenceWriter.writeNext(new String[]{String.valueOf(executionTime)});
+
+                //równolegle
+                threadArrayList = new ArrayList<>();
+                for (int j = 0; j < numberOfProblems; j++) {
+                    threadArrayList.add(new Thread(() -> Graph.ATSPBranchAndBound(graph23)));
+                }
+
+                nanosActualTime = System.nanoTime();
+                for (Thread t : threadArrayList) {
+                    t.start();
+                }
+
+
+                for (Thread t : threadArrayList) {
+                    t.join();
+                }
+                executionTime = (System.nanoTime() - nanosActualTime) / 1000000;
+                parallelWriter.writeNext(new String[]{String.valueOf(executionTime)});
+            }
+            sequenceWriter.close();
+            parallelWriter.close();
+
+
+        }
+
+
+
+        /*
+        DU¯Y PLIK - TSP_24.TXT
+        (10 POWTÓRZEÑ)
+         */
+        ArrayGraph graph24 = getArrayGraph("tsp_24.txt");
+
+
+        for (Integer numberOfProblems : numberOfThreads) {
+            //File file = new File(".\\results\\sequence_"+numberOfProblems + "_problems_size_22.csv");
+            String resultSequenceFilename = ".\\results\\sequence_"+numberOfProblems + "_problems_size_24.csv";
+            String resultParallelFilename = ".\\results\\parallel_"+numberOfProblems + "_problems_size_24.csv";
+            CSVWriter sequenceWriter = new CSVWriter(new FileWriter(resultSequenceFilename, true), ',', CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+            CSVWriter parallelWriter = new CSVWriter(new FileWriter(resultParallelFilename, true), ',', CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+
+            for (int i = 0; i < 10; i++) {
+                System.out.println("Liczba problemów: "+numberOfProblems + " Powtórzenie: " + i);
+                //sekwencyjnie
+                Thread sequence = new Thread(() -> {
+                    for (int j = 0; j < numberOfProblems; j++) {
+                        Graph.ATSPBranchAndBound(graph24);
+                    }
+                });
+                nanosActualTime = System.nanoTime();
+                sequence.start();
+                sequence.join();
+                executionTime = (System.nanoTime() - nanosActualTime) / 1000000;
+                sequenceWriter.writeNext(new String[]{String.valueOf(executionTime)});
+
+                //równolegle
+                threadArrayList = new ArrayList<>();
+                for (int j = 0; j < numberOfProblems; j++) {
+                    threadArrayList.add(new Thread(() -> Graph.ATSPBranchAndBound(graph24)));
+                }
+
+                nanosActualTime = System.nanoTime();
+                for (Thread t : threadArrayList) {
+                    t.start();
+                }
+
+
+                for (Thread t : threadArrayList) {
+                    t.join();
+                }
+                executionTime = (System.nanoTime() - nanosActualTime) / 1000000;
+                parallelWriter.writeNext(new String[]{String.valueOf(executionTime)});
+            }
+            sequenceWriter.close();
+            parallelWriter.close();
+
+
+        }
+    }
+
+    private static ArrayGraph getArrayGraph(String filename) throws FileNotFoundException {
+        Scanner scanner;
+        File file;
+        ArrayGraph graph;
+        int firstLine;
+        file = new File(filename);
+        scanner = new Scanner(file);
+        firstLine = scanner.nextInt();
+        graph = new ArrayGraph(firstLine);
         for (int i = 0; i < firstLine; i++) {
             for (int j = 0; j < firstLine; j++) {
                 graph.addEdge(i, j, scanner.nextInt());
             }
         }
-        //
-        //ArrayGraph graph = new ArrayGraph(24);
+        return graph;
+    }
 
-        //Graph.generateRandomFullGraph(graph, 100);
-        graph.displayGraph();
 
-        
-
-        long nanosActualTime = System.nanoTime();
-        Graph.ATSPBranchAndBound(graph);
-        long executionTime = System.nanoTime() - nanosActualTime;
-        System.out.println("Czas wykonania algorytmu [ms]: " + executionTime/1000000);
-
-	}
-
-	public void oldMenu() throws FileNotFoundException {
+    public void oldMenu() throws FileNotFoundException {
         int selection;
         ArrayGraph graph = null;
         final int maxSalesmanDistance = 300;
@@ -96,14 +270,14 @@ public class Main {
                             distFromStart += length;
 
                             System.out.print(route.get(i));
-                            if(i!= route.size()-1) {
+                            if (i != route.size() - 1) {
                                 System.out.print(" -> ");
                             }
                         }
                         System.out.println();
                         System.out.println("Dlugosc trasy: " + distFromStart);
 
-                        System.out.println("Czas wykonania algorytmu [ms]: " + executionTime/1000000);
+                        System.out.println("Czas wykonania algorytmu [ms]: " + executionTime / 1000000);
                     } else
                         System.out.println(" Brak zaladowanych danych ");
                 }
@@ -122,13 +296,13 @@ public class Main {
                             Graph.generateRandomFullGraph(graph2, maxSalesmanDistance);
                             long nanosActualTime = System.nanoTime();
                             Graph.ATSPBranchAndBound(graph2);
-                            long executionTime = (System.nanoTime() - nanosActualTime)/1000000;
+                            long executionTime = (System.nanoTime() - nanosActualTime) / 1000000;
                             sum += executionTime;
-                            System.out.print(" \r" + (100 / max_iteration)* (actualIterator + 1) + "%");
+                            System.out.print(" \r" + (100 / max_iteration) * (actualIterator + 1) + "%");
                         }
                         System.out.println();
                         average = sum / max_iteration;
-                        System.out.println("N = " + nIterator + ", sredni czas = " + average + "[ms]" );
+                        System.out.println("N = " + nIterator + ", sredni czas = " + average + "[ms]");
                     }
 
 

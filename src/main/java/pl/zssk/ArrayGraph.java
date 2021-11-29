@@ -1,4 +1,4 @@
-package main.java.pl.zssk;
+package pl.zssk;
 
 public class ArrayGraph extends Graph{
 	private int[][] neighborhoodMatrix;
