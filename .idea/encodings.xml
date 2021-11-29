@@ -2,17 +2,11 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/TravelingSalesmanHeldKarp.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/ArrayGraph.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/ArrayGraph.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/ArrayListComparator.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/ArrayListComparator.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/Graph.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/Graph.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/Main.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/Main.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/SetSizeComparator.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/SetSizeComparator.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/nextPermutation.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/src/pl/zssk/nextPermutation.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/java/pl/zssk/ArrayGraph.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/java/pl/zssk/ArrayListComparator.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/java/pl/zssk/Graph.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/java/pl/zssk/Main.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/java/pl/zssk/SetSizeComparator.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/java/pl/zssk/nextPermutation.java" charset="windows-1250" />
   </component>
 </project>
