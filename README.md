@@ -8,4 +8,4 @@
 się w wielu wątkach oraz zbadanie wpływu zrównoleglenia pracy na czas znajdowania
 optymalnego rozwiązania problemu komiwojażera.
 
-#### Dokumentacja projektu i wyniki pomiarów znajdują się w pliku ZSSK_dokumentacja.pdf.
+#### Dokumentacja projektu i wyniki pomiarów znajdują się w pliku [ZSSK_dokumentacja.pdf](https://github.com/Paullo99/zssk/blob/master/ZSSK_dokumentacja.pdf).
