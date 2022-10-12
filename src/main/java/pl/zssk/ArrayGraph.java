@@ -1,4 +1,4 @@
-package pl.zssk;
+package main.java.pl.zssk;
 
 public class ArrayGraph extends Graph{
 	private int[][] neighborhoodMatrix;
@@ -38,7 +38,7 @@ public class ArrayGraph extends Graph{
 	public void displayGraph() {
 		for (int i = 0; i < vertexAmount; i++) {
 			for (int j = 0; j < vertexAmount; j++) {
-				System.out.printf("%6d", this.neighborhoodMatrix[i][j]);
+				System.out.printf("%d ", this.neighborhoodMatrix[i][j]);
 			}
 			System.out.println();
 		}

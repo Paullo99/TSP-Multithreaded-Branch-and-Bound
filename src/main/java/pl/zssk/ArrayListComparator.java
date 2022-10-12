@@ -1,4 +1,4 @@
-package pl.zssk;
+package main.java.pl.zssk;
 
 import java.util.ArrayList;
 import java.util.Comparator;
