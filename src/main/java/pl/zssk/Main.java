@@ -24,8 +24,6 @@ public class Main {
         //Graph.generateRandomFullGraph(graph, 100);
         graph.displayGraph();
 
-        
-
         long nanosActualTime = System.nanoTime();
         Graph.ATSPBranchAndBound(graph);
         long executionTime = System.nanoTime() - nanosActualTime;
